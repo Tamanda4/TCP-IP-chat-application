@@ -55,3 +55,21 @@ def send_message():
             msg_entry.delete(0, tk.END)
         except:
             log_message("[Error sending message]", "system")
+
+
+def receive_messages():
+    while connected:
+        try:
+            msg = client_socket.recv(1024).decode()
+            if msg:
+                parts = msg.split(": ", 1)
+                if len(parts) == 2:
+                    sender, content = parts
+                    timestamp = datetime.datetime.now().strftime("%H:%M")
+                    align = 'left' if sender != username else 'right'
+                    bg = '#E5E5EA' if sender != username else '#DCF8C6'
+                    display_bubble(sender, content, timestamp, align=align, bg=bg)
+                else:
+                    log_message(msg, "system")
+        except:
+            break
