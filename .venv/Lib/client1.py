@@ -43,3 +43,15 @@ def disconnect_from_server():
     connect_btn.config(state='normal')
     disconnect_btn.config(state='disabled')
     send_btn.config(state='disabled')
+
+
+def send_message():
+    msg = msg_entry.get()
+    if msg and connected:
+        try:
+            client_socket.send(msg.encode())
+            timestamp = datetime.datetime.now().strftime("%H:%M")
+            display_bubble(f"You", msg, timestamp, align='right', bg='#DCF8C6')
+            msg_entry.delete(0, tk.END)
+        except:
+            log_message("[Error sending message]", "system")
