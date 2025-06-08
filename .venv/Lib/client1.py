@@ -90,3 +90,33 @@ def display_bubble(sender, message, timestamp, align='left', bg='#E5E5EA'):
     chat_area.tag_configure('right', justify='right', rmargin=10, background=bg, spacing3=5)
     chat_area.config(state='disabled')
     chat_area.see(tk.END)
+
+
+
+root = tk.Tk()
+root.title("TCP Chat Client")
+root.geometry("600x500")
+
+chat_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, state='disabled', width=70, height=20, font=('Arial', 10))
+chat_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+msg_entry = tk.Entry(root, width=50, font=('Arial', 10))
+msg_entry.pack(padx=10, pady=5, fill=tk.X)
+msg_entry.bind("<Return>", lambda event: send_message())
+
+send_btn = tk.Button(root, text="Send", command=send_message, state='disabled')
+send_btn.pack(pady=5)
+
+btn_frame = tk.Frame(root)
+btn_frame.pack(pady=5)
+
+connect_btn = tk.Button(btn_frame, text="Connect", command=connect_to_server)
+connect_btn.grid(row=0, column=0, padx=5)
+
+disconnect_btn = tk.Button(btn_frame, text="Disconnect", command=disconnect_from_server, state='disabled')
+disconnect_btn.grid(row=0, column=1, padx=5)
+
+chat_area.tag_configure("system", foreground="gray", justify='center')
+
+root.protocol("WM_DELETE_WINDOW", lambda: [disconnect_from_server(), root.destroy()])
+root.mainloop()
