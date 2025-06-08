@@ -29,3 +29,17 @@ def connect_to_server():
         send_btn.config(state='normal')
     except Exception as e:
         messagebox.showerror("Connection Error", str(e))
+
+
+def disconnect_from_server():
+    global connected
+    if connected:
+        try:
+            client_socket.close()
+            connected = False
+            log_message("[Disconnected]", "system")
+        except:
+            pass
+    connect_btn.config(state='normal')
+    disconnect_btn.config(state='disabled')
+    send_btn.config(state='disabled')
