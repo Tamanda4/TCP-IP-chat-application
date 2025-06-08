@@ -73,3 +73,20 @@ def receive_messages():
                     log_message(msg, "system")
         except:
             break
+
+
+def log_message(msg, tag):
+    chat_area.config(state='normal')
+    chat_area.insert(tk.END, msg + "\n", tag)
+    chat_area.config(state='disabled')
+    chat_area.see(tk.END)
+
+
+def display_bubble(sender, message, timestamp, align='left', bg='#E5E5EA'):
+    chat_area.config(state='normal')
+    bubble = f"{sender}: {message}\n{timestamp}"
+    chat_area.insert(tk.END, f"{bubble}\n", align)
+    chat_area.tag_configure('left', justify='left', lmargin1=10, background=bg, spacing3=5)
+    chat_area.tag_configure('right', justify='right', rmargin=10, background=bg, spacing3=5)
+    chat_area.config(state='disabled')
+    chat_area.see(tk.END)
