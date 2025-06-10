@@ -21,3 +21,13 @@ def start_server():
     except Exception as e:
         log(f"[ERROR] {e}")
 
+def stop_server():
+    global server_running, server_socket
+    server_running = False
+    for client in clients:
+        client.close()
+    if server_socket:
+        server_socket.close()
+    log("[SERVER STOPPED]")
+
+
