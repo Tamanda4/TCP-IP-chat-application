@@ -67,5 +67,12 @@ def broadcast(message, sender_socket):
                 clients.remove(client)
 
 
+def log(message):
+    output.config(state='normal')
+    output.insert(tk.END, message + '\n')
+    output.config(state='disabled')
+    output.see(tk.END)
+
+
 
 
