@@ -42,4 +42,19 @@ def accept_clients():
             break
 
 
+def handle_client(client_socket, addr):
+    while True:
+        try:
+            msg = client_socket.recv(1024).decode()
+            if not msg:
+                break
+            log(f"[{addr}] {msg}")
+            broadcast(f"{addr}: {msg}", client_socket)
+        except:
+            break
+    clients.remove(client_socket)
+    client_socket.close()
+    log(f"[DISCONNECTED] {addr}")
+
+
 
