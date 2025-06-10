@@ -57,4 +57,15 @@ def handle_client(client_socket, addr):
     log(f"[DISCONNECTED] {addr}")
 
 
+def broadcast(message, sender_socket):
+    for client in clients:
+        if client != sender_socket:
+            try:
+                client.send(message.encode())
+            except:
+                client.close()
+                clients.remove(client)
+
+
+
 
