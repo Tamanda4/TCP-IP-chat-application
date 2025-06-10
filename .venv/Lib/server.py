@@ -74,5 +74,25 @@ def log(message):
     output.see(tk.END)
 
 
+root = tk.Tk()
+root.title("TCP Server")
+
+frame = tk.Frame(root)
+frame.pack(pady=10)
+
+start_btn = tk.Button(frame, text="Start Server", command=start_server)
+start_btn.grid(row=0, column=0, padx=5)
+
+stop_btn = tk.Button(frame, text="Stop Server", command=stop_server)
+stop_btn.grid(row=0, column=1, padx=5)
+
+output = scrolledtext.ScrolledText(root, width=60, height=20, state='disabled')
+output.pack(padx=10, pady=10)
+
+root.protocol("WM_DELETE_WINDOW", lambda: [stop_server(), root.destroy()])
+root.mainloop()
+
+
+
 
 
