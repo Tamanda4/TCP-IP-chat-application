@@ -30,4 +30,16 @@ def stop_server():
         server_socket.close()
     log("[SERVER STOPPED]")
 
+def accept_clients():
+    while server_running:
+        try:
+            client_socket, addr = server_socket.accept()
+            clients.append(client_socket)
+            log(f"[CONNECTED] {addr}")
+            thread = threading.Thread(target=handle_client, args=(client_socket, addr), daemon=True)
+            thread.start()
+        except:
+            break
+
+
 
